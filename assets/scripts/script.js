@@ -1,17 +1,17 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+// // Write password to the #password input
+// function writePassword() {
+//   var password = generatePassword();
+//   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+//   passwordText.value = password;
 
-}
+// }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+// // Add event listener to generate button
+// generateBtn.addEventListener("click", writePassword);
 
 //Begin my code.
 // ====================================== //
@@ -21,6 +21,11 @@ generateBtn.addEventListener("click", writePassword);
 //Constructor to build the object's properties.
 //2. 
 
+
+//This will be a multi-dimensional array of possible characters.
+let upperChars = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+
+let userPref = new UserPreferences();
 
 //User Preferences Constructor
 function UserPreferences(length, lower, upper, numeric, special) {
@@ -32,20 +37,46 @@ function UserPreferences(length, lower, upper, numeric, special) {
 
 }
 
-generateBtn.addEventListener("click",TakeUserInput);
+generateBtn.addEventListener("click", takeUserInput);
 
-function TakeUserInput() {
+function takeUserInput() {
 
-  //Create a new object.
-  let userPref = new UserPreferences();
+  userPref.passLength = checkDesiredLength();
+  userPref.upper = checkDesiredCharTypes();
 
-  //Utilize prompts to 
-  userPref.passLength = prompt("Please enter your desired password length (Between 8 & 128).");
-  userPref.includeUpper = prompt("Would you like to include upper-case letters in your password?");
-  userPref.includeNumeric = prompt("Would you like to include numbers in your password?");
-  userPref.includeSpecial = prompt("Would you like to include special characters in your password?");
-
+  //Debugging only.
   console.log(userPref.passLength);
+  console.log(userPref.includeUpper);
 
 }
 
+
+//This function prompts the user to input a desired password length and then checks if it's within the accepted range.
+function checkDesiredLength() {
+
+  //Defines the minimum and maximum number of characters allowed for the password. Used to avoid "magic numbers".
+  let minChars = 8, maxChars = 128;
+
+  let desiredLength = prompt("Please enter your desired password length (Between 8 & 128).");
+
+  // Check if desired length is within acceptable range. If so, return desiredLength to be stored else alert the user and reprompt them to enter a valid number using recursion.
+  if (desiredLength >= 8 && desiredLength <= 128) {
+
+    return desiredLength;
+
+  } else {
+
+    alert(`Invalid range. Your password length must be between ${minChars} and ${maxChars}.`);
+    return checkDesiredLength();
+
+  }
+
+}
+
+function checkDesiredCharTypes() {
+
+  userPref.includeUpper = window.confirm("Would you like to use upper case letters in the password?");
+
+}
+
+  
