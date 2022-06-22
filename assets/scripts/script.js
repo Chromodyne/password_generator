@@ -41,20 +41,23 @@ generateBtn.addEventListener("click", takeUserInput);
 
 function takeUserInput() {
 
-  userPref.passLength = checkDesiredLength();
-  userPref.upper = checkDesiredCharTypes();
+  checkDesiredLength();
+  checkDesiredCharTypes();
 
   //Debugging only.
   console.log(userPref.passLength);
   console.log(userPref.includeUpper);
+  console.log(userPref.includeNumeric);
+  console.log(userPref.includeSpecial);
 
 }
 
 
-//This function prompts the user to input a desired password length and then checks if it's within the accepted range.
+//This function prompts the user to input a desired password length and then checks if it's within the accepted range of values.
 function checkDesiredLength() {
 
   //Defines the minimum and maximum number of characters allowed for the password. Used to avoid "magic numbers".
+  //TODO: Make this global maybe?
   let minChars = 8, maxChars = 128;
 
   let desiredLength = prompt("Please enter your desired password length (Between 8 & 128).");
@@ -62,7 +65,8 @@ function checkDesiredLength() {
   // Check if desired length is within acceptable range. If so, return desiredLength to be stored else alert the user and reprompt them to enter a valid number using recursion.
   if (desiredLength >= 8 && desiredLength <= 128) {
 
-    return desiredLength;
+    userPref.passLength = desiredLength;
+    return;
 
   } else {
 
@@ -75,7 +79,9 @@ function checkDesiredLength() {
 
 function checkDesiredCharTypes() {
 
-  userPref.includeUpper = window.confirm("Would you like to use upper case letters in the password?");
+  userPref.includeUpper = window.confirm("Would you like to use upper case letters in your password?");
+  userPref.includeNumeric = window.confirm("Would you like to use numeric characters in your password?");
+  userPref.includeSpecial = window.confirm("Would you like to use special characters in your password?");
 
 }
 
