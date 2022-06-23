@@ -11,7 +11,7 @@ function writePassword() {
 }
 
 // // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", writePassword);
 
 //Begin my code.
 // ====================================================== \\
@@ -95,30 +95,7 @@ function generatePassword() {
 
   let password;
   
-  //TODO: Finish the generation logic. Look for optimizations afterwards.
-  // switch (userPref) {
-
-  //    case userPref.includeLower: //&& userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial):
-
-  //      for (let i = 0; i < userPref.passLength; i++) {
-
-  //      //Pick a random subset of the charSet array. Might just hardcode the number for efficiency.
-  //      let randomizeSet = Math.floor(Math.random() * charSet.length);
-
-  //      //Find the number of elements in that array. Might just hardcode the number for efficiency.
-  //      let numElements = charSet[randomizeSet].length;
-
-  //      let randomElement = Math.floor(Math.random() * numElements);
-
-  //      password += randomElement;
-      
-  //      }
-
-  //      break;
-
-  //    default:
-  //      break;
-
+  //This begins the conditional chain which takes the user's preferences and then builds a password built on them.
   if (userPref.includeLower && userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial) {
 
     for (let i = 0; i < userPref.passLength; i++) {
@@ -134,18 +111,20 @@ function generatePassword() {
       generatedPassword[i] = charSet[randomSet][randomElement];
 
       password = generatedPassword.join('');
-      //password = password.concat.randomElement;
 
     }
+
     return password;
 
   }
 }
 
+//This function randomizes the subset of charSet to be used for password generation.
 function randomizeSet() {
   return Math.floor(Math.random() * charSet.length);
 }
 
+//This function randomizes the element from the previous randomized subset.
 function randomizeElement(numElements) {
   return Math.floor(Math.random() * numElements);
 }
