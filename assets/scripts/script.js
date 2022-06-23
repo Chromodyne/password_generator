@@ -24,6 +24,8 @@ let charSet = [
   ['!', '#', '%', '^', '&', '*', '(', ')']
 ];
 
+let generatedPassword = [];
+
 //User Preferences Constructor
 function UserPreferences(length, lower, upper, numeric, special) {
 
@@ -94,40 +96,55 @@ function generatePassword() {
   let password;
   
   //TODO: Finish the generation logic. Look for optimizations afterwards.
-  switch (userPref) {
+  // switch (userPref) {
 
-     case (userPref.includeLower && userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial):
+  //    case userPref.includeLower: //&& userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial):
 
-       for (let i = 0; i < userPref.passLength; i++) {
+  //      for (let i = 0; i < userPref.passLength; i++) {
 
-       let randomizeNumber = Math.floor(Math.random);
+  //      //Pick a random subset of the charSet array. Might just hardcode the number for efficiency.
+  //      let randomizeSet = Math.floor(Math.random() * charSet.length);
+
+  //      //Find the number of elements in that array. Might just hardcode the number for efficiency.
+  //      let numElements = charSet[randomizeSet].length;
+
+  //      let randomElement = Math.floor(Math.random() * numElements);
+
+  //      password += randomElement;
       
-       //Pick a random sub array of the character set array.
-       let randomizeSet = Math.floor(Math.random() * 3);
-       //Find the number of elements in that array. Might just hardcode the number for efficiency.
-       let numElements = charSet[randomizeSet].length;
+  //      }
 
-       
+  //      break;
+
+  //    default:
+  //      break;
+
+  if (userPref.includeLower && userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial) {
+
+    for (let i = 0; i < userPref.passLength; i++) {
+
+      //Pick a random subset of the charSet array. Might just hardcode the number for efficiency.
+      let randomizeSet = Math.floor(Math.random() * charSet.length);
+    
+      //Find the number of elements in that array. Might just hardcode the number for efficiency.
+      let numElements = charSet[randomizeSet].length;
+    
+      let randomElement = Math.floor(Math.random() * numElements);
       
-       //Pick a random character set.
-       //Pick a random element of that character set.
-       //Add that random element to the password string variable.
+      generatedPassword[i] = 
 
-       }
+      password = 
+      //password = password.concat.randomElement;
 
-       break;
+    }
 
-     default:
-       break;
+    console.log(password);
+    return password;
 
   }
-
+}
   //Outline
   //Check the value of each item in userPref.
   //Generate a password based on that.
   //Does not generate all possible passwords but only the one narrowed by the selection criteria.
-  //password = 
   
-  return password;
-
-}
