@@ -124,27 +124,28 @@ function generatePassword() {
     for (let i = 0; i < userPref.passLength; i++) {
 
       //Pick a random subset of the charSet array. Might just hardcode the number for efficiency.
-      let randomizeSet = Math.floor(Math.random() * charSet.length);
+      //let randomizeSet = Math.floor(Math.random() * charSet.length);
     
       //Find the number of elements in that array. Might just hardcode the number for efficiency.
-      let numElements = charSet[randomizeSet].length;
-    
-      let randomElement = Math.floor(Math.random() * numElements);
-      
-      generatedPassword[i] = 
+      let randomSet = randomizeSet();
+      let numElements = charSet[randomSet].length;
+      let randomElement = randomizeElement(numElements);
 
-      password = 
+      generatedPassword[i] = charSet[randomSet][randomElement];
+
+      password = generatedPassword.join('');
       //password = password.concat.randomElement;
 
     }
-
-    console.log(password);
     return password;
 
   }
 }
-  //Outline
-  //Check the value of each item in userPref.
-  //Generate a password based on that.
-  //Does not generate all possible passwords but only the one narrowed by the selection criteria.
-  
+
+function randomizeSet() {
+  return Math.floor(Math.random() * charSet.length);
+}
+
+function randomizeElement(numElements) {
+  return Math.floor(Math.random() * numElements);
+}
