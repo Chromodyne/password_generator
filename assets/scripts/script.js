@@ -14,13 +14,7 @@ function writePassword() {
 // generateBtn.addEventListener("click", writePassword);
 
 //Begin my code.
-// ====================================== //
-//Pseudo-code outline.
-//1. Prompt the user for their desired preferences and then store them.
-//Use an object to store the user's desired preferences for password generation?
-//Constructor to build the object's properties.
-//2. 
-
+// ====================================================== \\
 
 //This will be a multi-dimensional array of possible characters.
 let charSet = [
@@ -98,26 +92,33 @@ function checkDesiredCharTypes() {
 function generatePassword() {
 
   let password;
-
-  //Iterates through
-
+  
+  //TODO: Finish the generation logic. Look for optimizations afterwards.
   switch (userPref) {
 
-    case (userPref.includeLower && userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial):
+     case (userPref.includeLower && userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial):
 
-      for (let i = 0; i < userPref.passLength; i++) {
+       for (let i = 0; i < userPref.passLength; i++) {
 
+       let randomizeNumber = Math.floor(Math.random);
+      
+       //Pick a random sub array of the character set array.
+       let randomizeSet = Math.floor(Math.random() * 3);
+       //Find the number of elements in that array. Might just hardcode the number for efficiency.
+       let numElements = charSet[randomizeSet].length;
 
-        // let randomizeNumber = Math.floor(Math.random * chars.length);
-        // password += chars.substring(randomizeNumber, randomizeNumber + 1);
-      }
+       
+      
+       //Pick a random character set.
+       //Pick a random element of that character set.
+       //Add that random element to the password string variable.
 
-      alert(password);
+       }
 
-      break;
+       break;
 
-    default:
-      break;
+     default:
+       break;
 
   }
 
