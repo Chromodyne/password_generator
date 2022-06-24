@@ -11,10 +11,13 @@ function writePassword() {
 }
 
 // // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+//generateBtn.addEventListener("click", writePassword);
 
 //Begin my code.
 // ====================================================== \\
+
+//Event Listener for Click
+generateBtn.addEventListener("click", takeUserInput);
 
 //This will be a multi-dimensional array of possible characters.
 let charSet = [
@@ -24,9 +27,10 @@ let charSet = [
   ['!', '#', '%', '^', '&', '*', '(', ')']
 ];
 
+//Empty array to hold the password we generate.
 let generatedPassword = [];
 
-//User Preferences Constructor
+//User Preferences Object Constructor
 function UserPreferences(length, lower, upper, numeric, special) {
 
   this.passLength = length;
@@ -38,8 +42,6 @@ function UserPreferences(length, lower, upper, numeric, special) {
 }
 
 let userPref = new UserPreferences();
-
-generateBtn.addEventListener("click", takeUserInput);
 
 function takeUserInput() {
 
@@ -99,9 +101,6 @@ function generatePassword() {
   if (userPref.includeLower && userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial) {
 
     for (let i = 0; i < userPref.passLength; i++) {
-
-      //Pick a random subset of the charSet array. Might just hardcode the number for efficiency.
-      //let randomizeSet = Math.floor(Math.random() * charSet.length);
     
       //Find the number of elements in that array. Might just hardcode the number for efficiency.
       let randomSet = randomizeSet();
@@ -116,10 +115,20 @@ function generatePassword() {
 
     return password;
 
-  }
+  } //else if (!userPref.includeLower && userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial ) {
+
+  //   //Need to improve modularity of these by making a generic function that takes arguments to determine which
+  //   //subset of charSet to use.
+
+    
+
+  //   password = generatedPassword.join('');
+
+  // }
 }
 
 //This function randomizes the subset of charSet to be used for password generation.
+//TODO: Currently only uses all subsets. Needs to be sensitive to user preferences.
 function randomizeSet() {
   return Math.floor(Math.random() * charSet.length);
 }
@@ -127,4 +136,68 @@ function randomizeSet() {
 //This function randomizes the element from the previous randomized subset.
 function randomizeElement(numElements) {
   return Math.floor(Math.random() * numElements);
+}
+
+//I need an efficient way to write the code to generate the password based on preferences
+//24 if else lines is a bit excessive...
+
+
+function checkPrefCase() {
+
+  let prefCase;
+
+  //This if else block is sloppy but I need it for functionality for now. Will cleanup later if possible.
+  //Each statement can be broken down easier as a potential state of a 4-bit number with a bang '!' indicating a 0 and no bang indicating a 1.
+      //0000
+  if (!userPref.includeLower && !userPref.includeUpper && !userPref.includeNumeric && !userPref.includeSpecial) {
+      prefCase = 0;
+      //0001
+  } else if (!userPref.includeLower && !userPref.includeUpper && !userPref.includeNumeric && userPref.includeSpecial) {
+      prefCase = 1;
+      //0010
+  } else if (!userPref.includeLower && !userPref.includeUpper && userPref.includeNumeric && !userPref.includeSpecial) {
+      prefCase = 2;
+      //0011
+  } else if (!userPref.includeLower && !userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial) {
+      prefCase = 3;
+      //0100
+  } else if (!userPref.includeLower && userPref.includeUpper && !userPref.includeNumeric && !userPref.includeSpecial) {
+      prefCase = 4;
+      //0101
+  } else if (!userPref.includeLower && userPref.includeUpper && !userPref.includeNumeric && userPref.includeSpecial) {
+      prefCase = 5;
+      //0110
+  } else if (!userPref.includeLower && userPref.includeUpper && userPref.includeNumeric && !userPref.includeSpecial) {
+      prefCase = 6;
+      //0111
+  } else if (!userPref.includeLower && userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial) {
+      prefCase = 7;
+      //1000
+  } else if (userPref.includeLower && !userPref.includeUpper && !userPref.includeNumeric && !userPref.includeSpecial) {
+      prefCase = 8;
+      //1001
+  } else if (userPref.includeLower && !userPref.includeUpper && !userPref.includeNumeric && userPref.includeSpecial) {
+      prefCase = 9;
+      //1010
+  } else if (userPref.includeLower && !userPref.includeUpper && userPref.includeNumeric && !userPref.includeSpecial) {
+      prefCase = 10;
+      //1011
+  } else if (userPref.includeLower && !userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial) {
+      prefCase = 11;
+      //1100
+  } else if (userPref.includeLower && userPref.includeUpper && !userPref.includeNumeric && !userPref.includeSpecial) {
+      prefCase = 12;
+      //1101
+  } else if (userPref.includeLower && userPref.includeUpper && !userPref.includeNumeric && userPref.includeSpecial) {
+      prefCase = 13;
+      //1110
+  } else if (userPref.includeLower && userPref.includeUpper && userPref.includeNumeric && !userPref.includeSpecial) {
+      prefCase = 14;
+      //1111
+  } else if (userPref.includeLower && userPref.includeUpper && userPref.includeNumeric && userPref.includeSpecial) {
+      prefCase = 15;
+  }
+
+  return prefCase;
+
 }
