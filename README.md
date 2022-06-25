@@ -1,6 +1,6 @@
 # password_generator
 
-**Note:** This repo contains my personal code for challenge 03 of GA Tech's 2022 Coding Bootcamp.
+**Note:** TThis repo contains my source code for a configurable, randomized password generator created for Challenge 3 of GA Tech's 2022 Coding Bootcamp.
 
 ## Randomized Password Generator ##
 
