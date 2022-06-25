@@ -3,15 +3,12 @@ var generateBtn = document.querySelector("#generate");
 
 // // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var password = tempGen();
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
 }
-
-// // Add event listener to generate button
-//generateBtn.addEventListener("click", writePassword);
 
 //Begin my code.
 // ====================================================== \\
@@ -48,13 +45,6 @@ function takeUserInput() {
   checkDesiredLength();
   checkDesiredCharTypes();
   writePassword();
-
-  //Debugging only.
-  console.log(userPref.passLength);
-  console.log(userPref.includeLower);
-  console.log(userPref.includeUpper);
-  console.log(userPref.includeNumeric);
-  console.log(userPref.includeSpecial);
 
 }
 
@@ -146,7 +136,7 @@ function checkPrefCase() {
 
   let prefCase;
 
-  //This if else block is sloppy but I need it for functionality for now. Will cleanup later if possible.
+  //This is sloppy, slow, and not really needed but I want to separate this from generation so it's less cluttered.
   //Each statement can be broken down easier as a potential state of a 4-bit number with a bang '!' indicating a 0 and no bang indicating a 1.
       //0000
   if (!userPref.includeLower && !userPref.includeUpper && !userPref.includeNumeric && !userPref.includeSpecial) {
@@ -200,4 +190,147 @@ function checkPrefCase() {
 
   return prefCase;
 
+}
+
+//This generates the password based on the case numbers from the preceding function.
+function tempGen() {
+
+  let pref = checkPrefCase();
+  let password;
+  
+  switch (pref) {
+
+    case 0:
+
+      //0000 - No subsets are valid; therefore, spit error.
+      window.alert("You must select at least one option.")
+
+      break;
+    
+    //0001 - Special Only
+    case 1:
+
+      for (let i = 0; i < userPref.passLength; i ++) {
+
+        let set = charSet[3];
+
+        let numElements = set.length;
+
+        let randomElement = Math.floor(Math.random() * numElements);
+
+        generatedPassword[i] = charSet[3][randomElement];
+
+        password = generatedPassword.join('');
+
+      }
+
+      return password;
+
+      //0010 - Numbers Only
+      case 2:
+
+      for (let i = 0; i < userPref.passLength; i ++) {
+
+        let set = charSet[2];
+
+        let numElements = set.length;
+
+        let randomElement = Math.floor(Math.random() * numElements);
+
+        generatedPassword[i] = set[randomElement];
+
+        password = generatedPassword.join('');
+
+      }
+
+      return password;
+
+    //0011 - Numbers & Special Characters
+    case 3:
+
+      for (let i = 0; i < userPref.passLength; i++) {
+
+        let rNumber = 0;
+
+        let logic = true;
+
+        //If the random number isn't an accepted set regenerate until it is.
+        while (logic) {
+          
+          //For some reason my brain can't comprehend boolean logic in the while condition right now so do this to make sure it works.
+          if (rNumber == 2 || rNumber == 3) {
+            logic = false;
+          } else {
+            rNumber = randomNumber();
+          }
+
+        }
+
+        //console.log("Loop broken.")
+        console.log("Set Number: " + rNumber);
+        let set = charSet[rNumber];
+
+        let numElements = set.length;
+        console.log(numElements);
+
+        let randomElement = Math.floor(Math.random() * numElements);
+
+        generatedPassword[i] = set[randomElement];
+
+        password = generatedPassword.join('');
+
+      }
+
+      return password;
+
+    case 4:
+      break;
+    case 5:
+      break;
+    case 6:
+      break;
+    case 7:
+      break;
+    case 8:
+      break;
+    case 9:
+      break;
+    case 10:
+      break;
+    case 11:
+      break;
+    case 12:
+      break;
+    case 13:
+      break;
+    case 14:
+      break;
+    case 15:
+
+      for (let i = 0; i < userPref.passLength; i++) {
+        
+        let set = Math.floor(Math.random() * charSet.length);
+
+        let numElements = charSet[set].length;
+
+        let randomElement = Math.floor(Math.random() * numElements);
+
+        generatedPassword[i] = charSet[set][randomElement];
+
+        password = generatedPassword.join('');
+
+      }  
+
+      return password;
+
+    default:
+      //Debugging only.
+      window.alert("Invalid case error.")
+      break;
+  }
+
+}
+
+function randomNumber() {
+  return Math.floor(Math.random() * charSet.length);
 }
