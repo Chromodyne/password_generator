@@ -10,7 +10,7 @@ It accepts a desired length ranging from 8 to 128 characters as well as paramete
 
 ## Live Website ##
 
-
+https://chromodyne.github.io/password_generator/
 
 ## Screenshot ##
 
